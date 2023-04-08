@@ -3,6 +3,13 @@ import { useDispatch, useSelector } from 'react-redux';
 import { editWord } from 'redux/operations';
 import { toast } from 'react-toastify';
 import { selectWords } from 'redux/selectors';
+import Button from '@mui/material/Button';
+
+import {
+  ButtonWrapper,
+  StyledForm,
+  StyledTextField,
+} from './WordEditForm.styled';
 
 export function WordEditForm({ words, handleClose }) {
   const dispatch = useDispatch();
@@ -41,34 +48,34 @@ export function WordEditForm({ words, handleClose }) {
 
   return (
     <div>
-      <form onSubmit={handleEditWord}>
+      <StyledForm onSubmit={handleEditWord}>
         <div>
-          <label>
-            Ukrainian word
-            <input
-              type="text"
-              name="ukrWord"
-              value={word.ukrWord}
-              onChange={handleChange}
-            />
-          </label>
+          <StyledTextField
+            id="engWord"
+            label="Word in English"
+            variant="outlined"
+            type="text"
+            name="ukrWord"
+            value={word.engWord}
+            onChange={handleChange}
+          />
+          <StyledTextField
+            id="engWord"
+            label="Translation"
+            variant="outlined"
+            type="text"
+            name="ukrWord"
+            value={word.ukrWord}
+            onChange={handleChange}
+          />
         </div>
-        <div>
-          <label>
-            English word
-            <input
-              type="text"
-              name="engWord"
-              value={word.engWord}
-              onChange={handleChange}
-            />
-          </label>
-        </div>
-        <button type="submit">Edit Word</button>
-        <button type="button" onClick={handleClose}>
-          Cancel
-        </button>
-      </form>
+        <ButtonWrapper>
+          <Button type="submit">Edit Word</Button>
+          <Button type="button" onClick={handleClose}>
+            Cancel
+          </Button>
+        </ButtonWrapper>
+      </StyledForm>
     </div>
   );
 }

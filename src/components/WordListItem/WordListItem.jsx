@@ -3,6 +3,8 @@ import { Checkbox, FormControlLabel } from '@mui/material';
 import { deleteWord, checkWord } from 'redux/operations';
 import { useDispatch } from 'react-redux';
 import { WordModalEdit } from 'components/WordModalEdit/WordsModalEdit';
+import { ButtonWrapper, Wrapper } from './WordListItem.styled';
+import Button from '@mui/material/Button';
 
 export function WordListItem({ word }) {
   const dispatch = useDispatch();
@@ -19,20 +21,32 @@ export function WordListItem({ word }) {
 
   return (
     <li>
-      <FormControlLabel
-        control={<Checkbox checked={isChecked} />}
-        label="Label"
-        onClick={handleCheck}
-      />
-      <p>{word.ukrWord}</p> <p>{word.engWord}</p>{' '}
-      <button
-        onClick={() => {
-          handleDelete(word.id);
-        }}
-      >
-        Delete word
-      </button>
-      <WordModalEdit words={word} />
+      <Wrapper>
+        <FormControlLabel
+          control={<Checkbox checked={isChecked} />}
+          label=""
+          onClick={handleCheck}
+        />
+
+        <h2>
+          <span>English: </span>
+          {word.engWord}
+        </h2>
+        <h2>
+          <span>Українською: </span>
+          {word.ukrWord}
+        </h2>
+        <ButtonWrapper>
+          <WordModalEdit words={word} />
+          <Button
+            onClick={() => {
+              handleDelete(word.id);
+            }}
+          >
+            Delete word
+          </Button>
+        </ButtonWrapper>
+      </Wrapper>
     </li>
   );
 }

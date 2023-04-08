@@ -3,6 +3,9 @@ import { useDispatch, useSelector } from 'react-redux';
 import { addWord } from 'redux/operations';
 import { toast } from 'react-toastify';
 import { selectWords } from 'redux/selectors';
+import Button from '@mui/material/Button';
+
+import { StyledForm, StyledTextField } from './WordAddForm.styled';
 
 export function WordAddForm({ handleClose }) {
   const dispatch = useDispatch();
@@ -44,21 +47,23 @@ export function WordAddForm({ handleClose }) {
 
   return (
     <div>
-      <form onSubmit={handleAddWord}>
-        <div>
-          <label>
-            Ukrainian word
-            <input type="text" name="ukrWord" />
-          </label>
-        </div>
-        <div>
-          <label>
-            English word
-            <input type="text" name="engWord" />
-          </label>
-        </div>
-        <button type="submit">Add Word</button>
-      </form>
+      <StyledForm onSubmit={handleAddWord}>
+        <StyledTextField
+          id="engWord"
+          label="Word in English"
+          variant="outlined"
+          type="text"
+          name="engWord"
+        />
+        <StyledTextField
+          id="ukrWord"
+          label="Translation"
+          variant="outlined"
+          type="text"
+          name="ukrWord"
+        />
+        <Button type="submit">Add Word</Button>
+      </StyledForm>
     </div>
   );
 }
