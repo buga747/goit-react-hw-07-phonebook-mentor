@@ -1,20 +1,21 @@
 import { GlobalStyle } from './GlobalStyle';
-import { Container } from './App.styled';
-import ContactList from './ContactList';
-import ContactForm from './ContactForm';
-import Filter from './Filter';
+import { Route, Routes } from 'react-router-dom';
+import SharedLayout from './SharedLayout/SharedLayout';
+import { Home } from 'pages/Home';
+import { Learn } from 'pages/Learn';
 
 function App() {
   return (
-    <Container>
+    <div>
       <GlobalStyle />
-      <h1>Phonebook</h1>
-      <ContactForm />
 
-      <h2>Contacts</h2>
-      <Filter />
-      <ContactList />
-    </Container>
+      <Routes>
+        <Route path="/" element={<SharedLayout />}>
+          <Route index element={<Home />} />
+          <Route path="learn" element={<Learn />} />
+        </Route>
+      </Routes>
+    </div>
   );
 }
 
