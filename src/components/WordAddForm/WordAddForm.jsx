@@ -1,16 +1,42 @@
 import React from 'react';
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import { addWord } from 'redux/operations';
+import { toast } from 'react-toastify';
+import { selectWords } from 'redux/selectors';
 
 export function WordAddForm({ handleClose }) {
   const dispatch = useDispatch();
+  const words = useSelector(selectWords);
+
   const handleAddWord = evt => {
     evt.preventDefault();
+
+    const engWord = evt.currentTarget.engWord.value;
+    const ukrWord = evt.currentTarget.ukrWord.value;
+
     const wordObj = {
-      engWord: evt.currentTarget.engWord.value,
-      ukrWord: evt.currentTarget.ukrWord.value,
+      engWord,
+      ukrWord,
       isChecked: false,
     };
+
+    const isEngWordExist = words.some(word => word.engWord === engWord);
+    if (isEngWordExist) {
+      toast.error(`${engWord} is already in the list`);
+      return;
+    }
+
+    const isUkrWordExist = words.some(word => word.ukrWord === ukrWord);
+    if (isUkrWordExist) {
+      toast.error(`${ukrWord} вже є у Вашому списку`);
+      return;
+    }
+
+    if (engWord === '' || ukrWord === '') {
+      toast.error(`You need to insert value`);
+      return;
+    }
+
     dispatch(addWord(wordObj));
     evt.currentTarget.reset();
     handleClose();

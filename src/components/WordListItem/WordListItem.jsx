@@ -6,7 +6,6 @@ import { WordModalEdit } from 'components/WordModalEdit/WordsModalEdit';
 
 export function WordListItem({ word }) {
   const dispatch = useDispatch();
-
   const [isChecked, setIsCheched] = useState(word.isChecked);
 
   const handleDelete = id => {
