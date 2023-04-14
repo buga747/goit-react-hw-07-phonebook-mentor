@@ -1,7 +1,8 @@
 import styled from 'styled-components';
 
 export const InputWrapper = styled.div`
-  display: inline-block;
-  margin-left: 20px;
+  display: table;
+  margin-left: auto;
   margin-right: auto;
+  margin-bottom: 20px;
 `;

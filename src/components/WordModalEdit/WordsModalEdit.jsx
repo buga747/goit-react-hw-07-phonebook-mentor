@@ -23,7 +23,7 @@ export function WordModalEdit({ words }) {
 
   return (
     <div>
-      <Button onClick={handleOpen}>Edit word</Button>
+      <Button onClick={handleOpen}>Edit </Button>
       <Modal
         open={open}
         onClose={handleClose}

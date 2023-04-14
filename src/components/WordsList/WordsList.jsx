@@ -2,12 +2,13 @@ import { WordListItem } from 'components/WordListItem/WordListItem';
 import { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { fetchWords } from 'redux/operations';
-import { selectWords } from 'redux/selectors';
+import { selectFilteredWords } from 'redux/selectors';
+import { Table } from './WordList.styled';
 
 export const WordsList = () => {
   const dispatch = useDispatch();
 
-  const words = useSelector(selectWords);
+  const words = useSelector(selectFilteredWords);
 
   useEffect(() => {
     const controller = new AbortController();
@@ -18,10 +19,20 @@ export const WordsList = () => {
   }, [dispatch]);
 
   return (
-    <ul>
-      {words.map(word => (
-        <WordListItem key={word.id} word={word} />
-      ))}
-    </ul>
+    <Table>
+      <thead>
+        <tr>
+          <th>Select</th>
+          <th>English</th>
+          <th>Ukrainian</th>
+          <th>Actions</th>
+        </tr>
+      </thead>
+      <tbody>
+        {words.map(word => {
+          return <WordListItem key={word.id} word={word} />;
+        })}
+      </tbody>
+    </Table>
   );
 };
