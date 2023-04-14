@@ -10,8 +10,14 @@ export const StyledForm = styled.form`
 `;
 
 export const StyledTextField = styled(TextField)`
+  display: inline-flex;
   && {
-    margin-bottom: 20px;
     width: 100%;
   }
+`;
+
+export const InputWrapper = styled.div`
+  display: flex;
+  column-gap: 8px;
+  margin-bottom: 16px;
 `;

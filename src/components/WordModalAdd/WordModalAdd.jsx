@@ -5,11 +5,13 @@ import Modal from '@mui/material/Modal';
 import { WordAddForm } from 'components/WordAddForm/WordAddForm';
 
 const style = {
+  overflow: 'auto',
   position: 'absolute',
   top: '50%',
   left: '50%',
   transform: 'translate(-50%, -50%)',
   width: 400,
+  maxHeight: '80vH',
   bgcolor: 'background.paper',
   border: '2px solid #000',
   boxShadow: 24,

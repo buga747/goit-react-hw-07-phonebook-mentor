@@ -46,7 +46,7 @@ export const wordsSlice = createSlice({
       })
       .addCase(addWord.fulfilled, (state, action) => {
         state.isLoading = false;
-        state.items.push(action.payload);
+        state.items.unshift(action.payload);
       })
       .addCase(addWord.rejected, (state, action) => {
         state.isLoading = false;

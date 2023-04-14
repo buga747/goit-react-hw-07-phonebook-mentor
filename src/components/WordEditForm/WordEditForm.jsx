@@ -27,17 +27,10 @@ export function WordEditForm({ words, handleClose }) {
     evt.preventDefault();
     console.log(words);
     const engWord = evt.currentTarget.engWord.value;
-    const ukrWord = evt.currentTarget.ukrWord.value;
 
     const isEngWordExist = wordsToCheck.some(word => word.engWord === engWord);
     if (isEngWordExist) {
       toast.error(`${engWord} is already in the list`);
-      return;
-    }
-
-    const isUkrWordExist = wordsToCheck.some(word => word.ukrWord === ukrWord);
-    if (isUkrWordExist) {
-      toast.error(`${ukrWord} вже є у Вашому списку`);
       return;
     }
 
@@ -55,7 +48,7 @@ export function WordEditForm({ words, handleClose }) {
             label="Word in English"
             variant="outlined"
             type="text"
-            name="ukrWord"
+            name="engWord"
             value={word.engWord}
             onChange={handleChange}
           />
