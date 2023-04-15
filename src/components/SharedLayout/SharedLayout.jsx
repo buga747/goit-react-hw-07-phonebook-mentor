@@ -13,6 +13,7 @@ export default function SharedLayout() {
             Home
           </Link>
           <Link to="/learn">Learn</Link>
+          <Link to="/vocabulary">Vocabulary</Link>
         </nav>
       </Header>
       <main>

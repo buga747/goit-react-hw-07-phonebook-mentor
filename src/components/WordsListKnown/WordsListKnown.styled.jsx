@@ -8,6 +8,7 @@ export const Table = styled.table`
   border-radius: 10px;
   overflow: hidden;
   width: 800px;
+  margin-bottom: 20px;
 
   th {
     border: 1px solid #ddd;

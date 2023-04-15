@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { addWord } from 'redux/operations';
 import { toast } from 'react-toastify';
-import { selectWords } from 'redux/selectors';
+import { selectWords } from 'redux/words/selectors';
 import Button from '@mui/material/Button';
 import { FaBeer } from 'react-icons/fa';
 import {

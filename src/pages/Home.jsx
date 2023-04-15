@@ -1,14 +1,17 @@
 import React from 'react';
-import { WordsList } from '../components/WordsList/WordsList';
+import { WordsListToLearn } from '../components/WordsListToLearn/WordsListToLearn';
 import { WordModalAdd } from 'components/WordModalAdd/WordModalAdd';
 import SearchInput from 'components/Filter/Filter';
+import { Title } from 'components/Title/Title';
 
 export function Home() {
   return (
     <div>
+      <Title title="Words to learn" />
+
       <WordModalAdd />
       <SearchInput />
-      <WordsList />
+      <WordsListToLearn />
     </div>
   );
 }

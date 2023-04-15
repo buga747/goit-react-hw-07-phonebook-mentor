@@ -1,6 +1,6 @@
 import { combineReducers, configureStore } from '@reduxjs/toolkit';
-import { wordsReducer } from './wordsSlice';
-import { filterReducer } from './filterSlice';
+import { wordsReducer } from './words/wordsSlice';
+import { filterReducer } from './filter/filterSlice';
 
 const rootReducer = combineReducers({
   words: wordsReducer,

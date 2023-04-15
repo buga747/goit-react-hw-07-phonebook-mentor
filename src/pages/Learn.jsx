@@ -1,9 +1,10 @@
+import { Title } from 'components/Title/Title';
 import React from 'react';
 
 export function Learn() {
   return (
     <div>
-      <h1>LearnPage</h1>
+      <Title title="Select mode" />
     </div>
   );
 }

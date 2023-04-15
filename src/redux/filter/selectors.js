@@ -1,6 +1,5 @@
 import { createSelector } from '@reduxjs/toolkit';
-
-export const selectWords = state => state.words.items;
+import { selectWords } from 'redux/words/selectors';
 
 export const selectFilterValue = state => state.filter;
 

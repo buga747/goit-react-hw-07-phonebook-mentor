@@ -5,7 +5,7 @@ import {
   addWord,
   checkWord,
   editWord,
-} from './operations';
+} from '../operations';
 
 export const wordsSlice = createSlice({
   name: 'words',
