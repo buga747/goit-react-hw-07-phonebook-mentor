@@ -14,6 +14,11 @@ export const wordsSlice = createSlice({
     isLoading: false,
     error: null,
   },
+  reducers: {
+    setWordKnown: (state, action) => {
+      state.isLoading = action.payload;
+    },
+  },
   extraReducers: builder => {
     builder
       // fetchWords
@@ -84,6 +89,7 @@ export const wordsSlice = createSlice({
       });
   },
 });
+export const { setWordKnown } = wordsSlice.actions;
 
 export const wordsReducer = wordsSlice.reducer;
 

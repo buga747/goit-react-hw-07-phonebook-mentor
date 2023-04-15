@@ -27,3 +27,10 @@ export const selectFilteredWordsByKnown = createSelector(
     });
   }
 );
+
+export const selectUnknownEngWords = createSelector(
+  [selectWordsByUnKnown],
+  words => {
+    return words.map(word => word.engWord);
+  }
+);
