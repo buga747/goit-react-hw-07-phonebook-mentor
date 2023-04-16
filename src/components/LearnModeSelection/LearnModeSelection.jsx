@@ -2,6 +2,8 @@ import { Button } from '@mui/material';
 import React, { useState } from 'react';
 import { Wrapper } from './LearnModeSelection.styled';
 import { LearnWordsByTranslatingIntoUkrainian } from 'components/LearnWordsByTranslatingIntoUkrainian/LearnWordsByTranslatingIntoUkrainian';
+import { LearnWordsByTranslatingIntoEnglish } from 'components/LearnWordsByTranslatingIntoEnglish/LearnWordsByTranslatingIntoEnglish';
+import { RepeatAllWords } from 'components/RepeatAllWords/RepeatAllWords';
 
 export function LearnModeSelection() {
   const [activeButton, setActiveButton] = useState('');
@@ -13,6 +15,9 @@ export function LearnModeSelection() {
   const handleUkrainianToEnglishClick = () => {
     setActiveButton('ukrainianToEnglish');
   };
+  const handleAllWordsTrainingClick = () => {
+    setActiveButton('allWordsTraining');
+  };
 
   return (
     <div>
@@ -23,14 +28,18 @@ export function LearnModeSelection() {
         <Button type="button" onClick={handleUkrainianToEnglishClick}>
           Translate from Ukrainian into English
         </Button>
+        <Button type="button" onClick={handleAllWordsTrainingClick}>
+          Practice all words
+        </Button>
       </Wrapper>
 
       {activeButton === 'englishToUkrainian' && (
         <LearnWordsByTranslatingIntoUkrainian />
       )}
       {activeButton === 'ukrainianToEnglish' && (
-        <div>Information for translating from Ukrainian into English</div>
+        <LearnWordsByTranslatingIntoEnglish />
       )}
+      {activeButton === 'allWordsTraining' && <RepeatAllWords />}
     </div>
   );
 }

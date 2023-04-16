@@ -11,7 +11,7 @@ import {
   StyledTextField,
 } from './WordAddForm.styled';
 
-export function WordAddForm({ handleClose }) {
+export function WordAddForm({ handleClose, inputRef }) {
   const dispatch = useDispatch();
   const words = useSelector(selectWords);
 
@@ -88,7 +88,7 @@ export function WordAddForm({ handleClose }) {
 
   for (let i = 0; i < numWords; i += 1) {
     wordInputs.push(
-      <InputWrapper key={i * 365}>
+      <InputWrapper key={`engWord${i}`}>
         <StyledTextField
           id={`engWord${i}`}
           label="Word in English"

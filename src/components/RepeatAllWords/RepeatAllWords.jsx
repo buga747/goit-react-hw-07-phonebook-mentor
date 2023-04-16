@@ -1,40 +1,32 @@
-import React, { useEffect, useState } from 'react';
+import React, { useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import {
-  selectFilteredWordsByUnKnown,
-  selectWords,
-} from 'redux/words/selectors';
+import { selectWords } from 'redux/words/selectors';
 import { Button } from '@mui/material';
-import { Word } from './LearnWordsByTranslatingIntoUkrainian.styled';
+import { Word } from './RepeatAllWords.styled';
 import { toast } from 'react-toastify';
 import { checkWord } from 'redux/operations';
 
-export function LearnWordsByTranslatingIntoUkrainian() {
+export function RepeatAllWords() {
   const dispatch = useDispatch();
   const allWords = useSelector(selectWords);
-  const words = useSelector(selectFilteredWordsByUnKnown);
 
   const [randomWord, setRandomWord] = useState({});
   const [answerVariants, setAnswerVariants] = useState([]);
 
-  useEffect(() => {
-    console.log(randomWord);
-  }, [randomWord]);
-
   const handleGetRandomWord = () => {
-    if (words.length <= 3) {
-      toast.error(`Add more words to train`);
+    if (allWords.length <= 3) {
+      toast.error(`Add more words for practice`);
       return;
     }
 
-    const randomIndex = Math.floor(Math.random() * words.length);
-    setRandomWord(words[randomIndex]);
+    const randomIndex = Math.floor(Math.random() * allWords.length);
+    setRandomWord(allWords[randomIndex]);
 
     setAnswerVariants(prev => {
-      const newVariants = [words[randomIndex].ukrWord];
+      const newVariants = [allWords[randomIndex].ukrWord];
 
       for (let i = 0; newVariants.length < 4; i += 1) {
-        const randomIndex = Math.floor(Math.random() * words.length);
+        const randomIndex = Math.floor(Math.random() * allWords.length);
 
         if (newVariants.includes(allWords[randomIndex].ukrWord)) {
           continue;
@@ -61,6 +53,9 @@ export function LearnWordsByTranslatingIntoUkrainian() {
 
     if (randomWord.ukrWord !== evt.target.name) {
       toast.error(`Please try again later`);
+      setRandomWord(prev => ({ ...prev, isChecked: false }));
+      console.log(randomWord);
+      dispatch(checkWord({ ...randomWord, isChecked: false }));
     }
 
     if (randomWord.ukrWord === evt.target.name) {
@@ -75,27 +70,37 @@ export function LearnWordsByTranslatingIntoUkrainian() {
 
   return (
     <div>
-      <h2>Practice in translating from English</h2>
-      {words.length > 3 && <Button onClick={handleGetRandomWord}>Start</Button>}
+      <h2>Practice in translating from Ukrainian</h2>
 
-      {randomWord.engWord && words.length > 3 ? (
+      {allWords.length > 3 && (
+        <Button onClick={handleGetRandomWord}>Start</Button>
+      )}
+
+      {randomWord.engWord && allWords.length > 3 ? (
         <div>
-          <p>
-            What does <Word>{randomWord.engWord}</Word> mean?
-          </p>
-          <ul>
-            {randomAnswers.map(answer => (
-              <li key={answer}>
-                <button type="button" name={answer} onClick={handleCHeckAnswer}>
-                  {answer}
-                </button>
-              </li>
-            ))}
-          </ul>
+          {' '}
+          <div>
+            <p>
+              Як перекладається <Word>{randomWord.engWord}</Word>?
+            </p>
+            <ul>
+              {randomAnswers.map(answer => (
+                <li key={answer}>
+                  <button
+                    type="button"
+                    name={answer}
+                    onClick={handleCHeckAnswer}
+                  >
+                    {answer}
+                  </button>
+                </li>
+              ))}
+            </ul>
+          </div>
         </div>
       ) : null}
 
-      {words.length <= 3 && (
+      {allWords.length <= 3 && (
         <p>Please select another mode to train or add new words</p>
       )}
     </div>
