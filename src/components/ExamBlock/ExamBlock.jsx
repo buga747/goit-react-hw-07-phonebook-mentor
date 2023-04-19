@@ -11,6 +11,7 @@ export default function ExamBlock() {
   const dispatch = useDispatch();
   const [wordNumber, setWordNumber] = useState(0);
   const words = useSelector(selectWords);
+  // eslint-disable-next-line react-hooks/exhaustive-deps
   const examWords = useMemo(() => shuffleItemsForExam(words));
   const [examWord, setExamWord] = useState({});
   const [answerVariants, setAnswerVariants] = useState([]);
