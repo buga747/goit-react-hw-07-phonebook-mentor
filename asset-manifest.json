@@ -1,13 +1,13 @@
 {
   "files": {
     "main.css": "/learn-words/static/css/main.98ec47ca.css",
-    "main.js": "/learn-words/static/js/main.16375ff1.js",
+    "main.js": "/learn-words/static/js/main.d417ee57.js",
     "index.html": "/learn-words/index.html",
     "main.98ec47ca.css.map": "/learn-words/static/css/main.98ec47ca.css.map",
-    "main.16375ff1.js.map": "/learn-words/static/js/main.16375ff1.js.map"
+    "main.d417ee57.js.map": "/learn-words/static/js/main.d417ee57.js.map"
   },
   "entrypoints": [
     "static/css/main.98ec47ca.css",
-    "static/js/main.16375ff1.js"
+    "static/js/main.d417ee57.js"
   ]
 }
