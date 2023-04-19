@@ -5,6 +5,8 @@ import { Button } from '@mui/material';
 import { Word } from './RepeatAllWords.styled';
 import { toast } from 'react-toastify';
 import { checkWord } from 'redux/operations';
+import { shuffleArray } from 'utils/shuffleArray';
+import LearningModeHeader from 'components/LearningModeHeader/LearningModeHeader';
 
 export function RepeatAllWords() {
   const dispatch = useDispatch();
@@ -39,13 +41,6 @@ export function RepeatAllWords() {
     });
   };
 
-  const shuffleArray = array => {
-    for (let i = array.length - 1; i > 0; i--) {
-      const j = Math.floor(Math.random() * (i + 1));
-      [array[i], array[j]] = [array[j], array[i]];
-    }
-    return array;
-  };
   const randomAnswers = shuffleArray(answerVariants);
 
   const handleCHeckAnswer = evt => {
@@ -70,8 +65,7 @@ export function RepeatAllWords() {
 
   return (
     <div>
-      <h2>Practice in translating from Ukrainian</h2>
-
+      <LearningModeHeader title="Practice in all words translating" />
       {allWords.length > 3 && (
         <Button onClick={handleGetRandomWord}>Start</Button>
       )}

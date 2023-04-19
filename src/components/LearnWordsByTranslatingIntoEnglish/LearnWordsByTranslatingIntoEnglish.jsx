@@ -8,6 +8,8 @@ import { Button } from '@mui/material';
 import { Word } from './LearnWordsByTranslatingIntoEnglish.styled';
 import { toast } from 'react-toastify';
 import { checkWord } from 'redux/operations';
+import { shuffleArray } from 'utils/shuffleArray';
+import LearningModeHeader from 'components/LearningModeHeader/LearningModeHeader';
 
 export function LearnWordsByTranslatingIntoEnglish() {
   const dispatch = useDispatch();
@@ -43,13 +45,6 @@ export function LearnWordsByTranslatingIntoEnglish() {
     });
   };
 
-  const shuffleArray = array => {
-    for (let i = array.length - 1; i > 0; i--) {
-      const j = Math.floor(Math.random() * (i + 1));
-      [array[i], array[j]] = [array[j], array[i]];
-    }
-    return array;
-  };
   const randomAnswers = shuffleArray(answerVariants);
 
   const handleCHeckAnswer = evt => {
@@ -71,7 +66,7 @@ export function LearnWordsByTranslatingIntoEnglish() {
 
   return (
     <div>
-      <h2>Practice in translating from Ukrainian</h2>
+      <LearningModeHeader title="Practice in translating from Ukrainian into English" />
 
       {words.length > 3 && <Button onClick={handleGetRandomWord}>Start</Button>}
 

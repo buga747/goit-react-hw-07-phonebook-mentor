@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import { useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import {
   selectFilteredWordsByUnKnown,
@@ -8,6 +8,8 @@ import { Button } from '@mui/material';
 import { Word } from './LearnWordsByTranslatingIntoUkrainian.styled';
 import { toast } from 'react-toastify';
 import { checkWord } from 'redux/operations';
+import { shuffleArray } from 'utils/shuffleArray';
+import LearningModeHeader from 'components/LearningModeHeader/LearningModeHeader';
 
 export function LearnWordsByTranslatingIntoUkrainian() {
   const dispatch = useDispatch();
@@ -16,10 +18,6 @@ export function LearnWordsByTranslatingIntoUkrainian() {
 
   const [randomWord, setRandomWord] = useState({});
   const [answerVariants, setAnswerVariants] = useState([]);
-
-  useEffect(() => {
-    console.log(randomWord);
-  }, [randomWord]);
 
   const handleGetRandomWord = () => {
     if (words.length <= 3) {
@@ -47,13 +45,6 @@ export function LearnWordsByTranslatingIntoUkrainian() {
     });
   };
 
-  const shuffleArray = array => {
-    for (let i = array.length - 1; i > 0; i--) {
-      const j = Math.floor(Math.random() * (i + 1));
-      [array[i], array[j]] = [array[j], array[i]];
-    }
-    return array;
-  };
   const randomAnswers = shuffleArray(answerVariants);
 
   const handleCHeckAnswer = evt => {
@@ -75,7 +66,8 @@ export function LearnWordsByTranslatingIntoUkrainian() {
 
   return (
     <div>
-      <h2>Practice in translating from English</h2>
+      <LearningModeHeader title="Practice in translating from English into Ukrainian" />
+
       {words.length > 3 && <Button onClick={handleGetRandomWord}>Start</Button>}
 
       {randomWord.engWord && words.length > 3 ? (
