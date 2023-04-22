@@ -1,65 +1,50 @@
 import { ExamWrapper, Word, WordsNumberWrapper } from './ExamBlock.styled';
 import { useDispatch, useSelector } from 'react-redux';
-import { selectWords } from 'redux/words/selectors';
+import { selectExamWords, selectWords } from 'redux/words/selectors';
 import { shuffleItemsForExam } from 'utils/shuffleItemsForExam';
-import { useState } from 'react';
-import { checkWord } from 'redux/operations';
-import { useMemo } from 'react';
+import { useEffect, useState } from 'react';
 import { shuffleArray } from 'utils/shuffleArray';
+import { removeExamWord, setExamWords } from 'redux/words/wordsSlice';
+import { getExamAnswerVariants } from 'utils/getExamAnswerVariants';
 
 export default function ExamBlock() {
   const dispatch = useDispatch();
-  const [wordNumber, setWordNumber] = useState(0);
+  const [wordNumber, setWordNumber] = useState(1);
   const words = useSelector(selectWords);
-  // eslint-disable-next-line react-hooks/exhaustive-deps
-  const examWords = useMemo(() => shuffleItemsForExam(words));
-  const [examWord, setExamWord] = useState({});
+  const examWords = useSelector(selectExamWords);
+  const [examWord, setExamWord] = useState(null);
   const [answerVariants, setAnswerVariants] = useState([]);
-  const [result, setResult] = useState([]);
+  const [corectAnswers, setCorrectAnswers] = useState(0);
+  const [inCorectAnswers, setIncorrectAnswers] = useState(0);
+
+  useEffect(() => {
+    const shuffledWords = shuffleItemsForExam(words);
+    dispatch(setExamWords(shuffledWords));
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
+
+  useEffect(() => {
+    setExamWord(examWords[0]);
+    setAnswerVariants(getExamAnswerVariants(examWords, words, 5));
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [examWords]);
 
   const handleCheckAnswer = evt => {
     if (examWord.ukrWord === evt.target.name) {
-      setExamWord(prev => ({ ...prev, isChecked: true }));
-      setResult(prevResult => [...prevResult, { examWord: true }]);
-      console.log(examWord);
-      dispatch(checkWord({ ...examWord, isChecked: true }));
+      setCorrectAnswers(prev => prev + 1);
+      dispatch(removeExamWord(examWord.id));
     } else {
-      setExamWord(prev => ({ ...prev, isChecked: false }));
-      console.log(examWord);
-      dispatch(checkWord({ ...examWord, isChecked: false }));
-      setResult(prevResult => [...prevResult, { examWord: false }]);
+      setIncorrectAnswers(prev => prev + 1);
+      dispatch(removeExamWord(examWord.id));
     }
     setWordNumber(prev => prev + 1);
-    console.log(result);
-    setExamWord(examWords[wordNumber]);
-    console.log(examWords);
-    setAnswerVariants(prev => {
-      const newVariants = [examWords[wordNumber].ukrWord];
-
-      for (let j = 1; newVariants.length < 4; j += 1) {
-        const randomIndex = Math.floor(Math.random() * words.length);
-
-        if (newVariants.includes(words[randomIndex].ukrWord)) {
-          continue;
-        } else {
-          newVariants.push(words[randomIndex].ukrWord);
-        }
-      }
-
-      return newVariants;
-    });
-
-    console.log(wordNumber);
   };
 
   const randomAnswers = shuffleArray(answerVariants);
 
   return (
     <ExamWrapper>
-      <button type="button" onClick={handleCheckAnswer}>
-        Start
-      </button>
-      {examWord.engWord && (
+      {examWord?.engWord && (
         <div>
           <WordsNumberWrapper>{wordNumber}/10</WordsNumberWrapper>{' '}
           <div>
@@ -80,6 +65,15 @@ export default function ExamBlock() {
               ))}
             </ul>
           </div>
+        </div>
+      )}
+      {!examWords.length && (
+        <div>
+          <p>correct: {corectAnswers}</p>
+          <p>incorrect: {inCorectAnswers}</p>
+          <p>
+            result {(corectAnswers / (inCorectAnswers + corectAnswers)) * 100}%
+          </p>
         </div>
       )}
     </ExamWrapper>

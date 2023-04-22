@@ -7,16 +7,28 @@ import {
   editWord,
 } from '../operations';
 
+const initialState = {
+  items: [],
+  isLoading: false,
+  error: null,
+  examWords: [],
+};
+
 export const wordsSlice = createSlice({
   name: 'words',
-  initialState: {
-    items: [],
-    isLoading: false,
-    error: null,
-  },
+  initialState: initialState,
   reducers: {
     setWordKnown: (state, action) => {
       state.isLoading = action.payload;
+    },
+    setExamWords: (state, action) => {
+      return { ...state, examWords: action.payload };
+    },
+    removeExamWord: (state, action) => {
+      const index = state.examWords.findIndex(
+        word => word.id === action.payload
+      );
+      state.examWords.splice(index, 1);
     },
   },
   extraReducers: builder => {
@@ -26,7 +38,7 @@ export const wordsSlice = createSlice({
         state.isLoading = true;
       })
       .addCase(fetchWords.fulfilled, (state, action) => {
-        return { items: action.payload, isLoading: false, error: null };
+        return { ...state, items: action.payload };
       })
       .addCase(fetchWords.rejected, (state, action) => {
         state.isLoading = false;
@@ -89,10 +101,7 @@ export const wordsSlice = createSlice({
       });
   },
 });
-export const { setWordKnown } = wordsSlice.actions;
+export const { setWordKnown, setExamWords, removeExamWord } =
+  wordsSlice.actions;
 
 export const wordsReducer = wordsSlice.reducer;
-
-// const randomIntegerFromInterval = (min, max) => {
-//   return Math.floor(Math.random() * (max - min + 1) + min);
-// };

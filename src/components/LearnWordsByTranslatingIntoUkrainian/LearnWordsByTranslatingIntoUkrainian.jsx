@@ -10,6 +10,7 @@ import { toast } from 'react-toastify';
 import { checkWord } from 'redux/operations';
 import { shuffleArray } from 'utils/shuffleArray';
 import LearningModeHeader from 'components/LearningModeHeader/LearningModeHeader';
+import { getUkrAnswerVariants } from 'utils/getUkrAnswerVariants';
 
 export function LearnWordsByTranslatingIntoUkrainian() {
   const dispatch = useDispatch();
@@ -28,21 +29,7 @@ export function LearnWordsByTranslatingIntoUkrainian() {
     const randomIndex = Math.floor(Math.random() * words.length);
     setRandomWord(words[randomIndex]);
 
-    setAnswerVariants(prev => {
-      const newVariants = [words[randomIndex].ukrWord];
-
-      for (let i = 0; newVariants.length < 4; i += 1) {
-        const randomIndex = Math.floor(Math.random() * words.length);
-
-        if (newVariants.includes(allWords[randomIndex].ukrWord)) {
-          continue;
-        } else {
-          newVariants.push(allWords[randomIndex].ukrWord);
-        }
-      }
-
-      return newVariants;
-    });
+    setAnswerVariants(getUkrAnswerVariants(randomIndex, words, allWords, 4));
   };
 
   const randomAnswers = shuffleArray(answerVariants);

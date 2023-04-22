@@ -4,6 +4,8 @@ export const selectWords = state => state.words.items;
 
 export const selectFilterValue = state => state.filter;
 
+export const selectExamWords = state => state.words.examWords;
+
 export const selectWordsByKnown = state =>
   state.words.items.filter(word => word.isChecked);
 
